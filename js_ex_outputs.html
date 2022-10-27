@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>Header Tag</h1>
+    <p>Paragraph 1</p>
+
+    <p id="demo">paragraph 2</p>
+
+    <script>
+        document.getElementById("demo").innerHTML = "You are using innerHTML";
+    </script>
+
+    <script>
+        document.write("You are using document.write()");
+    </script>
+    <br>
+    <p>
+        <button onclick="alert('You are using an alert box')">Alert Box</button>
+    </p>
+
+    <p>
+        open debugger by F12 and open consol
+        <script>
+            console.log("Great! you are using consol.log()");
+        </script>
+    </p>
+
+    <p>
+        You are using window.print() to <button onclick="window.print()">Print this page</button>
+
+    </p>
+</body>
+
+</html>
