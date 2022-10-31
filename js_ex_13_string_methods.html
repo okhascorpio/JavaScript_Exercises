@@ -4,11 +4,14 @@
 
 <p>Javascript Strings Methods</p>
 
+
+
 <p id="demo1"></p>
 <p id="demo2"></p>
 <p id="demo3"></p>
 <p id="demo4"></p>
 <p id="demo5"></p>
+<p id="demo6"></p>
 
 <script>
 let text1 = "Hello";
@@ -25,8 +28,33 @@ document.getElementById("demo4").innerHTML = "Slice(-2) of 'Hello' = "+text1.sli
 document.getElementById("demo5").innerHTML = "Replace all 'World' with 'Javascript' case insensitive ' = "+text3.replace(/world/ig,'Javascript');
 
 document.getElementById("demo5").innerHTML += "<br>Replaceall('World','Java') = "+text3.replaceAll('World','Java');
+</script>
+
+
+<!--
+More Methods
+JavaScript Search Methods
+String indexOf()
+String lastIndexOf()
+String search()
+String match()
+String matchAll()
+String includes()
+String startsWith()
+String endsWith()
+-->
+
+<script>
+let text="The earliest known form of Latin is Old Latin, which was spoken from the Roman Kingdom to the later part of the Roman Republic period. It is attested both in inscriptions and in some of the earliest extant Latin literary works, such as the comedies of Plautus and Terence.";
+document.getElementById("demo6").innerHTML = "index of 'the' after 70 : "+text.indexOf('the',70);
+document.getElementById("demo6").innerHTML += "<br>search 'the' case insensitive: "+text.search(/the/i);
+document.getElementById("demo6").innerHTML += "<br>match() returns an array of matching string:<br>Can be global /g and case insensitive /i "+text.match(/the/ig);
+
+const iterator = text.matchAll(/the/ig);
+document.getElementById("demo6").innerHTML += "<br> matchAll() returns iterator: "+Array.from(iterator);
 
 </script>
+
 
 </body>
 </html>

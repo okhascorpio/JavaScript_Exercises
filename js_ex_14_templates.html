@@ -1,0 +1,47 @@
+<!--
+Template Literals
+Template Strings
+String Templates
+Back-Tics Syntax
+-->
+
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<p id="demo"></p>
+
+
+<script>
+let firstName = "John";
+let lastName = "Doe";
+
+let text = `Allow 'single' and "double" quotes 
+inside a stringallows multiline strings, 
+allow variables in strings, 
+allow expressions in strings.<br> 
+Welcome ${firstName},
+ ${lastName.length*2+4}!`;
+
+document.getElementById("demo").innerHTML = text;
+</script>
+
+<script>
+    let header = "Templates Literals";
+    let tags = ["template literals", "javascript", "es6"];
+    
+    let html = `<p>${header}</p><ul>`;
+    
+    for (const x of tags) {
+      html += `<li>${x}</li>`;
+    }
+    
+    html += `</ul>`;
+    document.getElementById("demo").innerHTML += html;
+    </script>
+
+
+</body>
+</html>
+
