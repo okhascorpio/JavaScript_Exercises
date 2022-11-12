@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>JavaScript Number Methods</h2>
+
+    <!--
+toString()	    Returns a number as a string
+toExponetial()	Returns a number written in exponential notation
+toFixed()	    Returns a number written with a number of decimals
+toPrecision()	Returns a number written with a specified length
+ValueOf()	    Returns a number as a number
+
+
+Number()        Converts js variables to numbers, and gives NaN for alphabets.
+                On dates give milli seconds since 1.1.1970 till the given date.
+parseInt()      Returns a whole number when a numeric string is given.
+parseFloat()    Parses its argument and returns a floating point number
+
+
+
+Number Object Methods
+Number.isInteger()	    Returns true if the argument is an integer
+Number.isSafeInteger()	Returns true if the argument is a safe integer
+Number.parseFloat() 	Converts a string to a number
+Number.parseInt()	    Converts a string to a whole number
+
+
+-->
+
+    <p id="demo"></p>
+
+    <script>
+        var x = 123;
+        document.getElementById("demo").innerHTML = "<br>toString()<br>" +
+            x.toString() + "<br>" +
+            (123).toString() + "<br>" +
+            (100 + 23).toString() + "<br>";
+
+        var x = 7.5864;
+        document.getElementById("demo").innerHTML += "<br>toExponential()<br>" +
+            x.toExponential() + "<br>" +
+            x.toExponential(2) + "<br>" +
+            x.toExponential(4) + "<br>" +
+            x.toExponential(6) + "<br>";
+
+        var x = 9.656;
+        document.getElementById("demo").innerHTML += "<br>toFixed()<br>" +
+            x.toFixed(0) + "<br>" +
+            x.toFixed(2) + "<br>" +
+            x.toFixed(4) + "<br>" +
+            x.toFixed(6);
+
+        var x = 9.656;
+        document.getElementById("demo").innerHTML += "<br>toPrecision()<br>" +
+            x.toPrecision() + "<br>" +
+            x.toPrecision(2) + "<br>" +
+            x.toPrecision(4) + "<br>" +
+            x.toPrecision(6) + "<br>";
+
+        x = Number("22");
+        document.getElementById("demo").innerHTML += "<br>valueOf()<br>" +
+            x.valueOf() + "<br>" +
+            ("123").valueOf() + "<br>" +
+            (100 + 23).valueOf() + "<br>";
+
+        document.getElementById("demo").innerHTML += "<br>Number()<br>" +
+            Number(true) + "<br>" +
+            Number(" 10  ") + "<br>" +
+            Number("10.33") + "<br>" +
+            Number("10,33") + "<br>" +
+            Number("10 33") + "<br>" +
+            Number("John") + "<br>";
+
+        var x = new Date("1970-01-01");
+        document.getElementById("demo").innerHTML += "<br>mseconds until 1.1.1970: " + Number(x);
+        document.getElementById("demo").innerHTML += "<br>mseconds until 1.2.1970: " + Number(new Date("1970-02-01"));
+
+        document.getElementById("demo").innerHTML += "<br><br>parseInt()<br>" +
+            parseInt("-10.33") + "<br>" +
+            parseInt("10.33") + "<br>" +
+            parseInt("10 6") + "<br>" +
+            parseInt("10 years") + "<br>" +
+            parseInt("years 10") + "<br>";
+
+        document.getElementById("demo").innerHTML += "<br>parseFloat()<br>" +
+            parseFloat("10.33") + "<br>" +
+            parseFloat("10 6") + "<br>" +
+            parseFloat("10 years") + "<br>" +
+            parseFloat("years 10");
+
+
+
+        document.getElementById("demo").innerHTML +=
+            "<br><br>Number.isInteger('10'): " + Number.isInteger(10) +
+            "<br> Number.isInteger('10.5'): " + Number.isInteger(10.5) + "<br>" +
+            "Number.isSafeInteger(1000): " + Number.isSafeInteger(1000) + "<br>" +
+            "Number.isSafeInteger(1e16): " + Number.isSafeInteger(1e16) + "<br>" +
+            "Number.parseFloat(): " + Number.parseFloat("10.33") + "<br>" +
+            "Number.parseInt(): " +   Number.parseInt("-10.33");
+
+    </script>
+
+</body>
+
+</html>
