@@ -12,5 +12,7 @@ const cars = [
   "Volvo",
   "BMW"
 ]
-document.getElementById("demo").innerHTML = cars;
-console.log("Is 'cars' an array? "+Array.isArray(cars))
+//document.getElementById("demo").innerHTML = cars;
+console.log("cars= "+cars);
+console.log("cars[2]= "+cars[2]);
+console.log("Is 'cars' an array? "+Array.isArray(cars));
