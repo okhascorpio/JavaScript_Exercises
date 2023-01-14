@@ -1,6 +1,5 @@
 function telephoneCheck(str) {
-    const regex = /^\d{10}$|((^\d{3}|^\(\d{3}\)|^1\d{3}|^1\(\d{3}\)|^1\s\d{3}|^1\s\(\d{3}\))((-|\s)?\d{3}(-|\s)?\d{4}$))/;
-    //const regex =/^(1\(\d{3}\))/;
+    const regex = /^(1\s?)?(\d{3}|\(\d{3}\))[\-\s]?\d{3}[\-\s]?\d{4}$/;
     return regex.test(str);
   } 
   
