@@ -1,0 +1,151 @@
+// this page takes part of the pdf file location as /folder/fileName as url query /?= ie this_page_url/?=/folder/fileName
+// rest of the url for the pdf is hard coded down in the coded    
+
+<style>
+    .control-button {
+        width: 20vw;
+        height: 2rem;
+    }
+
+    .spacer {
+        width: 5vw;
+        display: inline-block;
+    }
+    #pdf_doc {
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        }
+    canvas {
+        display: block;
+        overflow: auto;
+        }
+</style>
+
+<button class="control-button" onclick="prevPage()">&lt;&lt;</button>
+<button class="control-button" onclick="nextPage()">&gt;&gt;</button>
+<span class="spacer"></span>
+<button class="control-button" onclick="zoomIn()">&plus;</button>
+<button class="control-button" onclick="zoomOut()">&ndash;</button>
+
+    
+<div id=pdf_doc>
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+
+
+
+<script>
+    // Function to get the {argument} from the query parameters of the page URL
+    function getArgumentFromUrl() {
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('') || 'default-argument';
+    }
+
+    // Get the {argument} from the URL
+    var argument = getArgumentFromUrl();
+
+    // Specify the URL of the PDF file
+    var pdfUrl = `https://example.com/wp-content/uploads/${argument}.pdf`;
+
+    //console.log('PDF URL:', pdfUrl);
+
+var pdfContainer = document.getElementById('pdf_doc');
+var pageNum = 1;
+
+var scale = getScale();
+var pdfDoc = null;
+console.log(`scale ${scale}`);
+function getScale() {
+    var landscapeScale = 1.2;
+    var portraitScale = 0.6;
+
+    // Use window.matchMedia to check if the orientation is landscape
+    if (window.matchMedia('(orientation: landscape)').matches) {
+        return landscapeScale;
+    } else {
+        return portraitScale;
+    }
+}   
+        
+async function loadPdf(url) {
+            try {
+                const document = await pdfjsLib.getDocument(url).promise;
+                pdfDoc = document;
+                renderPage();
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+            }
+        }
+        
+function renderPage() {
+    if (!pdfDoc) {
+        console.error('pdfDoc is null or undefined');
+        return;
+    }
+
+    pdfDoc.getPage(pageNum).then(function (page) {
+        var canvas = document.createElement('canvas');
+        var viewport = page.getViewport({ scale: scale });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        var context = canvas.getContext('2d', { alpha: false });
+
+        var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+        };
+
+        // Clear previous pages before appending the new one
+        pdfContainer.innerHTML = '';
+
+        page.render(renderContext).promise.then(function () {
+            pdfContainer.appendChild(canvas);
+        }).catch(function (error) {
+            console.error('Error rendering page:', error);
+        });
+    }).catch(function (error) {
+        console.error('Error getting page:', error);
+    });
+}
+
+        function prevPage() {
+            if (pageNum > 1) {
+                pageNum--;
+                renderPage();
+            }
+        }
+
+        function nextPage() {
+            if (pageNum < pdfDoc.numPages) {
+                pageNum++;
+                renderPage();
+            }
+        }
+
+        function zoomIn() { 
+            if (scale < 3) {
+                scale += 0.2;
+                renderPage();
+            }
+        }
+
+        function zoomOut() {
+            if (scale > 0.4) {
+                scale -= 0.2;
+                renderPage();
+            }
+        }
+
+        // Load PDF document on page load
+        window.onload = function () {
+            loadPdf(pdfUrl);
+        };
+    </script>
