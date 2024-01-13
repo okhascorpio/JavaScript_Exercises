@@ -1,0 +1,89 @@
+<style>
+    .news-ticker {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.heading {
+    background-color: red;
+    color: white;
+    z-index: 1;
+    width: 150px;
+    text-align: center;
+    padding: 7px 0;
+}
+
+.ticker-content {
+    width: 100%;
+    padding-left: 160px;
+    animation: ticker 4s linear infinite;
+}
+
+@keyframes ticker {
+    0% {
+        transform: translateX(90%);
+    }
+    10% {
+        transform: translateX(-160px); /* Adjusted value to stop at the 160px mark */
+    }
+    12% {
+        transform: translateX(-150px); /* Content remains stationary */
+    }
+    100% {
+        transform: translateX(-150px); /* Content remains stationary */
+    }
+}
+
+
+}
+
+</style>
+
+<div class="news-ticker">
+    <div class="heading">
+        <span>Latest News</span>
+    </div>
+    <div class="ticker-content">
+        <!-- Post headings will be inserted here -->
+    </div>
+</div>
+
+
+<script>
+    jQuery(document).ready(function($) {
+    // Fetch posts from the specified API endpoint
+    $.get('/wp-json/wp/v2/posts', function(data) {
+        // Map posts to an array of objects containing title and URL
+        const posts = data.map(post => ({
+            title: post.title.rendered,
+            url: post.link // Use 'link' property to get the post URL
+        }));
+
+        // Populate post headings with hyperlinks inside the .ticker-content div
+        const tickerContent = $('.ticker-content');
+        let currentIndex = 0; // Initialize current index
+
+        // Function to display next post
+        function displayNextPost() {
+            const post = posts[currentIndex];
+            tickerContent.empty(); // Clear previous post
+            tickerContent.append(`<div><a href="${post.url}" target="_blank">${post.title}</a></div>`);
+            
+            // Move to next post or reset index to loop through posts
+            currentIndex = (currentIndex < posts.length - 1) ? currentIndex + 1 : 0;
+        }
+
+        // Set interval to display posts one by one every 4 seconds (to synchronize with the ticker animation)
+        setInterval(displayNextPost, 4020); // Adjust the interval time to 4000ms (4 seconds)
+        
+        // Initial display
+        displayNextPost();
+    });
+});
+
+</script>
+
+
